@@ -1,0 +1,52 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <h1 class="text-4xl font-bold my-4 text-rose-700">Products</h1>
+
+  <div class="w-full">
+    <div id="products" class="grid grid-cols-5 gap-4">
+      <%= render get_all_products %>
+    </div>
+  </div>
+
+  <h1 class="text-4xl font-bold my-4 text-rose-700">Cart</h1>
+
+  <table class="w-full border-collapse">
+    <thead>
+      <tr class="text-left">
+        <th class="py-4 px-4 bg-gray-100 border-b">Product Code</th>
+        <th class="py-4 px-4 bg-gray-100 border-b">Name</th>
+        <th class="py-4 px-4 bg-gray-100 border-b">Quantity</th>
+        <th class="py-4 px-4 bg-gray-100 border-b">Price</th>
+        <th class="py-4 px-4 bg-gray-100 border-b">Sub Total</th>
+        <th class="py-4 px-4 bg-gray-100 border-b">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart.each do |code, item| %>
+        <tr>
+          <td class="py-2 px-4 border-b"><%= code %></td>
+          <td class="py-2 px-4 border-b"><%= item['name'] %></td>
+          <td class="py-2 px-4 border-b"><%= item['quantity'] %></td>
+          <td class="py-2 px-4 border-b"><%= item['price'] %></td>
+          <td class="py-2 px-4 border-b"><%= item['sub_total'] %></td>
+          <td class="py-2 px-4 border-b">
+            <div class="flex space-x-2">
+              <%= button_to "+", cart_add_product_path(product_code: code), class: "rounded-lg py-2 px-4 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
+              <%= button_to "-", cart_add_product_path(product_code: code, decrease_product: :true), class: "rounded-lg py-2 px-4 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
+              <%= button_to 'Remove', cart_remove_product_path(product_code: code), method: :delete, data: { confirm: 'Are you sure?' }, class: "rounded-lg py-2 px-4 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      <tr>
+        <td class="py-4 px-4 border-b font-bold" colspan="4">Total Price</td>
+        <td class="py-4 px-4 border-b font-bold" colspan="2"><%= calculate_total_price %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+</div>

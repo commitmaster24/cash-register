@@ -1,0 +1,19 @@
+<div id="<%= dom_id product %>" class="border border-gray-200 rounded-lg shadow py-5 text-center">
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1 inline-block">Code:</strong>
+    <%= product.product_code %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1 inline-block">Name:</strong>
+    <%= product.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1 inline-block">Price:</strong>
+    <%= product.price %>
+  </p>
+
+  <%= button_to "Add to Cart", cart_add_product_path(product_code: product.product_code), method: :POST, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+</div>
